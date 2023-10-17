@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, Ref, reactive } from "vue";
+import { ref, Ref, reactive, watch } from "vue";
 import { PatientsRegister, DrugCode, Quarantine } from "hospital-lib";
 
 import services from "@api/services";
@@ -12,9 +12,27 @@ import { Simulation } from "@definitions/simulation";
 const register: Ref<PatientsRegister> = ref<PatientsRegister>(null);
 const treatment: Ref<DrugCode[]> = ref<PatientsRegister>(null);
 const simulations = reactive<Simulation[]>([]);
+const autoRefreshData: Ref<boolean> = ref<boolean>(false);
 
 const fetchRegisterError = ref<string | null>(null);
 const fetchTreatmentError = ref<string | null>(null);
+
+const refreshDataInterval = ref<NodeJS.Timeout | null>(null);
+
+watch(autoRefreshData, async () => {
+  if (autoRefreshData.value === false && refreshDataInterval.value !== null) {
+    clearInterval(refreshDataInterval.value);
+    refreshDataInterval.value = null;
+  } else {
+    //init first call by hand
+    fetchData();
+
+    // then, start auto refresh every 30 seconds
+    refreshDataInterval.value = setInterval(function () {
+      fetchData();
+    }, 30000); // 30 seconds
+  }
+});
 
 const fetchPatients = async () => {
   try {
@@ -95,10 +113,16 @@ const simulate = () => {
     </div>
   </div>
 
-  <div>
+  <v-row>
     <v-btn @click="fetchData"> Fetch patients and drugs </v-btn>
     <v-btn @click="simulate" color="primary"> Administer drugs to the patients </v-btn>
-  </div>
+    <v-switch
+      color="primary"
+      v-model="autoRefreshData"
+      :true-value="true"
+      :false-value="false"
+      label="Automatic refresh (30s)"></v-switch>
+  </v-row>
 
   <div>
     <h3>10 last simulations:</h3>
