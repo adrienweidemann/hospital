@@ -9,13 +9,13 @@ In order to make this project works:
 
 - Clone the project:
 
-```console
+```c
 git clone https://github.com/adrienweidemann/hospital.git
 ```
 
 - Switch to develop:
 
-```console
+```c
 cd hospital
 git fetch / git checkout develop
 ```
