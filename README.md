@@ -41,7 +41,9 @@ npm link
 ```c
 cd hospital-be
 
-//yarn should work aswell
+npm ci
+
+// be sure you don't have already an app listening on port 7200
 npm run start
 ```
 
@@ -50,7 +52,8 @@ npm run start
 ```c
 cd hospital-fe
 
-//yarn should work aswell
+npm ci
+npm link hospital-lib
 npm run dev
 ```
 
