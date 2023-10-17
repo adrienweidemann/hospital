@@ -1,3 +1,61 @@
+# How to (install & build & run)
+
+[![Node](https://img.shields.io/badge/node-16-black.svg?logo=node.js&color=43853d)](https://nodejs.org/)
+[![NPM](https://img.shields.io/badge/npm-8-black.svg?logo=npm&color=CB0000)](htps://npmjs.com)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-black.svg?logo=typescript&color=3178c6)](https://typescriptlang.org/)
+[![Vue](https://img.shields.io/badge/vue-3-black.svg?logo=vuedotjs&color=green)](https://vuejs.org/)
+
+In order to make this project works:
+
+- Clone the project:
+
+```console
+git clone https://github.com/adrienweidemann/hospital.git
+```
+
+- Switch to develop:
+
+```console
+cd hospital
+git fetch / git checkout develop
+```
+
+- Go to the lib to install/build and generate the link:
+
+```c
+cd hospital-lib
+
+//yarn should work aswell
+npm ci
+npm run build:prod
+
+//for windows / yarn should work aswell
+npm run build:prod-from-windows
+
+//generate link
+npm link
+```
+
+- Go to the back-end and run the server
+
+```c
+cd hospital-be
+
+//yarn should work aswell
+npm run start
+```
+
+- And then, in another shell, start the front:
+
+```c
+cd hospital-fe
+
+//yarn should work aswell
+npm run dev
+```
+
+_Happy testing!_
+
 # Hospital coding challenge
 
 We would like to ask you to do a fun coding exercise to have a deeper understanding of your coding skills. Imagine that your code will be read and modified by other developers, so they should be able to understand it easily. You should also remember that code should be easily extensible and maintainable, but at the same time beware of overly complicated solutions
